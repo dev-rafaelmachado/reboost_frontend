@@ -1,3 +1,4 @@
+import { ActiveRentals } from '@/components/rent/ActiveRentals'
 import { RentForm } from '@/components/rent/Form'
 
 const HomePage = () => {
@@ -8,6 +9,10 @@ const HomePage = () => {
       </header>
       <section className="mt-10 flex w-full px-6">
         <RentForm />
+      </section>
+      <section className="w-full space-y-4 px-6 py-4">
+        <h1 className=" text-2xl font-bold text-black">Active Rentals</h1>
+        <ActiveRentals />
       </section>
     </main>
   )
