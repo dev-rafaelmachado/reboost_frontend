@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Poppins, Lato } from 'next/font/google'
 import './globals.css'
+import ReactQueryProvider from '@/contexts/QueryClient'
 
 const poppins = Poppins({
   subsets: ['latin'],
@@ -23,10 +24,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`${poppins.className} ${lato.className}`}>
-        {children}
-      </body>
-    </html>
+    <ReactQueryProvider>
+      <html lang="en">
+        <body className={`${poppins.className} ${lato.className}`}>
+          {children}
+        </body>
+      </html>
+    </ReactQueryProvider>
   )
 }

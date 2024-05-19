@@ -11,7 +11,7 @@ export type GetRentByIdComplete = {
   cabinetToId: number | null
   cabinetTo: Cabinet | null
   batteryId: number
-  Battery: Battery
+  battery: Battery
   userId: number
   user: User
 }

@@ -18,5 +18,11 @@ export const Chronometer = ({ beginDate, finalDate }: Props) => {
     return () => clearInterval(interval)
   }, [beginDate, finalDate])
 
-  return <span>{`${time.hours}:${time.minutes}:${time.seconds}`}</span>
+  return (
+    <span>{`${make2Digits(time.hours)}:${make2Digits(time.minutes)}:${make2Digits(time.seconds)}`}</span>
+  )
+}
+
+const make2Digits = (value: number) => {
+  return value.toString().padStart(2, '0')
 }

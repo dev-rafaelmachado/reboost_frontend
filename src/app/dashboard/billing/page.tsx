@@ -1,8 +1,13 @@
+import { Wallet } from '@/components/billing/Wallet'
+
 const BillingsPage = () => {
   return (
-    <div>
-      <h1>Billing</h1>
-    </div>
+    <main>
+      <header className="w-full bg-gray-200/60 px-6 py-4">
+        <h1 className="text-4xl font-bold text-black">Billing</h1>
+      </header>
+      <Wallet />
+    </main>
   )
 }
 

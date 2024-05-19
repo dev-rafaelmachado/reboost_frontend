@@ -2,7 +2,7 @@ export type Rent = {
   id: number
   startDate: Date
   endDate: Date | null
-  cabinetFromId: string
+  cabinetFromId: number
   cabinetToId: number | null
   batteryId: number
   userId: number

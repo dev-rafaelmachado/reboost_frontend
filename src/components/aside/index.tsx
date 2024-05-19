@@ -1,6 +1,6 @@
 'use client'
 
-import { GearSix, House, Wallet } from '@phosphor-icons/react/dist/ssr'
+import { House, Wallet } from '@phosphor-icons/react/dist/ssr'
 import { AsideItem } from './Item'
 import { usePathname } from 'next/navigation'
 import { Button } from '../ui/button'
@@ -16,11 +16,11 @@ const items = [
     text: 'Billing',
     url: '/dashboard/billing',
   },
-  {
-    icon: <GearSix weight="bold" />,
-    text: 'Settings',
-    url: '/dashboard/settings',
-  },
+  // {
+  //   icon: <GearSix weight="bold" />,
+  //   text: 'Settings',
+  //   url: '/dashboard/settings',
+  // },
 ]
 
 export const Aside = () => {
