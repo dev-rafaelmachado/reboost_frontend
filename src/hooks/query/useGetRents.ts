@@ -1,8 +1,8 @@
 import { GetRentByIdComplete } from '@/@types/complete/GetRentByIdComplete'
-import { fetchBatteryById } from '@/shared/querysAndMutations/byId/fetchBatteryById'
-import { fetchCabinetById } from '@/shared/querysAndMutations/byId/fetchCabinetById'
-import { fetchUserById } from '@/shared/querysAndMutations/byId/fetchUserById'
-import { fetchRents } from '@/shared/querysAndMutations/gets/fetchRents'
+import { fetchBatteryById } from '@/shared/query/fetchBatteryById'
+import { fetchCabinetById } from '@/shared/query/fetchCabinetById'
+import { fetchUserById } from '@/shared/query/fetchUserById'
+import { fetchRents } from '@/shared/query/fetchRents'
 import { useQuery } from '@tanstack/react-query'
 
 const QUERY_KEY = ['Rent']

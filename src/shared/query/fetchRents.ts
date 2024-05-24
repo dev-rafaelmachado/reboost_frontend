@@ -1,5 +1,5 @@
 import { Rent } from '@/@types/common/Rent'
-import { RentDTO } from '@/@types/dto/RentDTO'
+import { RentDTO } from '@/@types/dto/Rent/RentDTO'
 import { apiClient } from '@/services/apiClient'
 import { toSaoPauloTime } from '@/utils/toSaoPauloTime'
 

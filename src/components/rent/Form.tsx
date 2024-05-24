@@ -23,6 +23,7 @@ import { useState } from 'react'
 import { Input } from '../ui/input'
 import { Skeleton } from '../ui/skeleton'
 import { Button } from '../ui/button'
+import { getCabinetBatteryComplete } from '@/hooks/query/useGetCabinetRent'
 
 const rentSchema = z.object({
   cabinetCode: z.string().min(3, 'Cabinet code must be at least 3 characters'),
@@ -37,6 +38,8 @@ export const RentForm = () => {
       cabinetCode: '',
     },
   })
+
+  const cabinetCode = form.watch('cabinetCode')
 
   const [brands, setBrands] = useState<string[]>([
     'Baseus',
@@ -62,16 +65,7 @@ export const RentForm = () => {
     pricePerHour: number
     totalPrice: number
     code: string
-  } | null>(
-    null || {
-      model: 'Power Bank 20000 mAh',
-      brand: 'Anker',
-      capacity: 20000,
-      pricePerHour: 0.47,
-      totalPrice: 40,
-      code: 'AB1234',
-    },
-  )
+  } | null>(null)
 
   return (
     <>
@@ -87,7 +81,25 @@ export const RentForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Cabinet Code</FormLabel>
-                  <FormControl>
+                  <FormControl
+                    onBlur={async (e) => {
+                      const res = await getCabinetBatteryComplete({
+                        cabinetId: Number((e.target as HTMLInputElement).value),
+                      })
+
+                      setBrands(
+                        res.map((r) => r?.battery?.brand).filter(Boolean),
+                      )
+                      setCapacities(
+                        res
+                          .map((r) => ({
+                            label: `${r?.battery?.capacity} mAh`,
+                            value: r?.battery?.capacity,
+                          }))
+                          .filter(Boolean),
+                      )
+                    }}
+                  >
                     <Input
                       className=""
                       placeholder="Enter the cabinet code"
@@ -101,6 +113,11 @@ export const RentForm = () => {
             <FormField
               control={form.control}
               name="brand"
+              disabled={
+                cabinetCode === '' ||
+                cabinetCode === null ||
+                cabinetCode === undefined
+              }
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Brand</FormLabel>
@@ -128,6 +145,11 @@ export const RentForm = () => {
             <FormField
               control={form.control}
               name="capacity"
+              disabled={
+                cabinetCode === '' ||
+                cabinetCode === null ||
+                cabinetCode === undefined
+              }
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Capacity</FormLabel>

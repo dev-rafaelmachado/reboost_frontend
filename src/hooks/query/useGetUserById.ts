@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { User } from '@/@types/common/User'
-import { fetchUserById } from '@/shared/querysAndMutations/byId/fetchUserById'
+import { fetchUserById } from '@/shared/query/fetchUserById'
 
 const QUERY_KEY = ['User']
 

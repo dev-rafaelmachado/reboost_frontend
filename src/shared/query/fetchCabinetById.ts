@@ -1,5 +1,5 @@
 import { Cabinet } from '@/@types/common/Cabinet'
-import { CabinetDTO } from '@/@types/dto/CabinetDto'
+import { CabinetDTO } from '@/@types/dto/Cabinet/CabinetDto'
 import { apiClient } from '@/services/apiClient'
 
 export const fetchCabinetById = async (id: number): Promise<Cabinet> => {

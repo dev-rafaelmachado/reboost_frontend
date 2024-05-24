@@ -1,6 +1,5 @@
 'use client'
 
-import { Button } from '../ui/button'
 import {
   Card,
   CardHeader,
@@ -10,6 +9,7 @@ import {
 } from '../ui/card'
 import { useGetUser } from '@/hooks/query/useGetUserById'
 import { userTestId } from '@/shared/userTest'
+import { Recharge } from './Recharge'
 
 export const Wallet = () => {
   const { data, isLoading } = useGetUser(userTestId)
@@ -34,7 +34,7 @@ export const Wallet = () => {
           )}
         </CardContent>
         <CardFooter>
-          <Button>Recharge</Button>
+          <Recharge />
         </CardFooter>
       </Card>
     </section>
