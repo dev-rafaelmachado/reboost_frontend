@@ -1,5 +1,5 @@
-import { ActiveRentals } from '@/components/rent/ActiveRentals'
-import { RentForm } from '@/components/rent/Form'
+import { ActiveRentals } from '@/components/pages/rent/ActiveRentals'
+import { RentForm } from '@/components/pages/rent/Form'
 
 const HomePage = () => {
   return (

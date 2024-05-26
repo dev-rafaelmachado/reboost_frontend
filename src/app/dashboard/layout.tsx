@@ -1,4 +1,4 @@
-import { Aside } from '@/components/aside'
+import { Aside } from '@/components/pages/aside'
 
 export default function RootLayout({
   children,

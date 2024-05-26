@@ -1,4 +1,4 @@
-import { Wallet } from '@/components/billing/Wallet'
+import { Wallet } from '@/components/pages/billing/Wallet'
 
 const BillingsPage = () => {
   return (
