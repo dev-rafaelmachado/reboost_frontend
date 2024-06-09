@@ -1,3 +1,5 @@
 import { Battery } from '../../common/Battery'
 
-export type BatteryDTO = Battery
+export type BatteryDTO = Omit<Battery, 'isActivated'> & {
+  isActive: boolean
+}

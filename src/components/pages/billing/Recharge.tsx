@@ -31,7 +31,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/shared/ui/radio-group'
 
 import { useAuth } from '@/contexts/AuthContext'
 
-import { useUpdateUser } from '@/hooks/tanstack/useUpdateUser'
+import { useUpdateUser } from '@/hooks/tanstack/useMutateUser'
 
 const rechargeSchema = z.object({
   amount: z.string().transform((v) => Number(v) || 0),

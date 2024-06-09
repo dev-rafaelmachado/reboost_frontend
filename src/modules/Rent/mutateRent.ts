@@ -3,19 +3,19 @@ import { apiClient } from '@/services/apiClient'
 import { RentDTO } from '@/types/dto/Rent/RentDTO'
 
 export type MutateRentParams = {
-  rentId?: number
-  data: Partial<Omit<RentDTO | 'id', 'isActive'>>
+  id?: number
+  body: Partial<Omit<RentDTO | 'id', 'isActive'>>
 }
 
 export const mutateRent = async ({
-  rentId,
-  data,
+  id,
+  body,
 }: MutateRentParams): Promise<RentDTO> => {
-  if (rentId) {
-    const res = await apiClient.put<RentDTO>(`/Rents/${rentId}`, data)
-    return res.data
+  if (id) {
+    const { data } = await apiClient.put<RentDTO>(`/Rents/${id}`, body)
+    return data
   }
 
-  const res = await apiClient.post<RentDTO>('/Rents', data)
-  return res.data
+  const { data } = await apiClient.post<RentDTO>('/Rents', body)
+  return data
 }

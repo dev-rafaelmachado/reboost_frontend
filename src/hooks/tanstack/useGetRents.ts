@@ -19,9 +19,8 @@ const getRentComplete = async ({
   const rentsRaw = await fetchRents({
     userId,
   })
-  const rentsFilter = rentsRaw.filter((rent) => rent.userId === userId)
 
-  const rentsComplete = rentsFilter.map(async (rent) => {
+  const rentsComplete = rentsRaw.map(async (rent) => {
     const user = await fetchUserById(rent.userId)
     const battery = await fetchBatteryById(rent.batteryId)
     const cabinetFrom = await fetchCabinetById(rent.cabinetFromId)

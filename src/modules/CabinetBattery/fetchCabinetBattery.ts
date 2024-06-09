@@ -1,6 +1,7 @@
-import { CabinetBattery } from '@/types/common/CabinetBattery'
-import { CabinetBatteryDTO } from '@/types/dto/CabinetBattery/CabinetBatteryDTO'
 import { apiClient } from '@/services/apiClient'
+
+import { Battery } from '@/types/common/Battery'
+import { BatteryDTO } from '@/types/dto/Battery/BatteryDTO'
 
 type getCabinetBatteryParams = {
   cabinetId: number
@@ -12,10 +13,10 @@ type getCabinetBatteryParams = {
 
 export const fetchCabinetBattery = async (
   params: getCabinetBatteryParams,
-): Promise<CabinetBattery[]> => {
-  const { data } = await apiClient.get<CabinetBatteryDTO[]>(
-    // `/Cabinets/${params.cabinetId}/batteries`,
-    `/CabinetBattery/${params.cabinetId}`,
+): Promise<Battery[]> => {
+  const { data } = await apiClient.get<BatteryDTO[]>(
+    `/Cabinet/${params.cabinetId}/Batteries`,
+    // `/CabinetBattery/${params.cabinetId}`,
     {
       params: params.battery && {
         brand: params.battery.brand,
@@ -24,21 +25,14 @@ export const fetchCabinetBattery = async (
     },
   )
 
-  const cabinetBattery = data as unknown as CabinetBatteryDTO
-
-  return [
-    {
-      id: cabinetBattery.id,
-      order: cabinetBattery.order,
-      cabinetId: cabinetBattery.fkCabinetId,
-      batteryId: cabinetBattery.fkBatteryId,
-    },
-  ]
-
-  return data.map((cabinetBattery) => ({
-    id: cabinetBattery.id,
-    order: cabinetBattery.order,
-    cabinetId: cabinetBattery.fkCabinetId,
-    batteryId: cabinetBattery.fkBatteryId,
+  return data.map((battery) => ({
+    id: battery.id,
+    isActivated: battery.isActive,
+    model: battery.model,
+    brand: battery.brand,
+    capacity: battery.capacity,
+    pricePerHour: battery.pricePerHour,
+    totalPrice: battery.totalPrice,
+    externalCode: battery.externalCode,
   }))
 }

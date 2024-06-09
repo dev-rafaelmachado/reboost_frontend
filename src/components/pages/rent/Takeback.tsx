@@ -28,7 +28,7 @@ import { Input } from '@/components/shared/ui/input'
 import { useAuth } from '@/contexts/AuthContext'
 
 import { useMutateRent } from '@/hooks/tanstack/useMutateRent'
-import { useUpdateUser } from '@/hooks/tanstack/useUpdateUser'
+import { useUpdateUser } from '@/hooks/tanstack/useMutateUser'
 
 import { calcHourSpend } from '@/shared/utils/calcHourSpend'
 
@@ -89,8 +89,8 @@ export const TakeBack = ({ rent }: Props) => {
 
   const onSubmit = (values: z.infer<typeof takeBackSchema>) => {
     mutateRent({
-      rentId: rent.id,
-      data: {
+      id: rent.id,
+      body: {
         fkCabinetFromId: rent.cabinetFromId,
         fkCabinetToId: parseInt(values.cabinetToId),
         fkUserId: rent.userId,

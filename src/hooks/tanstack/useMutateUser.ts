@@ -1,12 +1,12 @@
 import { useMutation } from '@tanstack/react-query'
 
-import { updateUser } from '@/modules/User/updateUser'
+import { mutateUser } from '@/modules/User/mutateUser'
 
-const MUTATION_ID = ['updateUser']
+const MUTATION_ID = ['mutateRent']
 
 export const useUpdateUser = ({ onSuccess }: { onSuccess?: () => void }) => {
   return useMutation({
-    mutationFn: updateUser,
+    mutationFn: mutateUser,
     mutationKey: MUTATION_ID,
     onSuccess,
   })
