@@ -34,9 +34,12 @@ import {
 } from '@/components/shared/ui/select'
 import { Skeleton } from '@/components/shared/ui/skeleton'
 
+import { useAuth } from '@/contexts/AuthContext'
+
 import { useMutateRent } from '@/hooks/tanstack/useMutateRent'
 
-import { userTest } from '@/shared/test/userTest'
+import { formatDate } from '@/shared/utils/formatDate'
+import { toGlobalTime } from '@/shared/utils/toGlobalTime'
 
 import { fetchCabinetBattery } from '@/modules/CabinetBattery/fetchCabinetBattery'
 
@@ -53,6 +56,9 @@ export const RentForm = () => {
       cabinetCode: '',
     },
   })
+
+  const { user } = useAuth()
+
   const cabinetCode = form.watch('cabinetCode')
   const brand = form.watch('brand')
   const capacity = form.watch('capacity')
@@ -122,9 +128,15 @@ export const RentForm = () => {
     })
   }
 
-  const fetchBatteryOptions = async () => {
+  const fetchBatteryOptions = async (
+    PCabinetCode?: string,
+    PBrand?: string,
+  ) => {
     const optionsBattery = await fetchCabinetBattery({
-      cabinetId: Number(cabinetCode),
+      cabinetId: Number(PCabinetCode || cabinetCode),
+      battery: {
+        brand: PBrand || brand,
+      },
     })
 
     if (optionsBattery === null) return
@@ -152,21 +164,18 @@ export const RentForm = () => {
   const rentBattery = async () => {
     if (battery === null) return
 
-    // 2024-05-19T12:15:19.7371349
-    const now = new Date()
-    const beginDate = `${now.getFullYear()}-${now.getMonth()}-${now.getDate()}T${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`
-
     mutateRent(
       {
         body: {
-          beginDate,
+          beginDate: formatDate(toGlobalTime(new Date())),
           fkCabinetFromId: Number(cabinetCode),
-          fkUserId: userTest.id,
+          fkUserId: user?.id,
           fkBatteryId: battery.id,
         },
       },
       {
         onSuccess: () => {
+          setBattery(null)
           setOpen(false)
         },
       },
@@ -189,7 +198,11 @@ export const RentForm = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Cabinet Code</FormLabel>
-                  <FormControl onChange={fetchBatteryOptions}>
+                  <FormControl
+                    onChange={(e) => {
+                      fetchBatteryOptions((e.target as HTMLInputElement).value)
+                    }}
+                  >
                     <Input
                       className=""
                       placeholder="Enter the cabinet code"
@@ -214,7 +227,7 @@ export const RentForm = () => {
                   <Select
                     onValueChange={(value) => {
                       field.onChange(value)
-                      fetchBatteryOptions()
+                      fetchBatteryOptions(cabinetCode, value)
                     }}
                     defaultValue={field.value}
                   >

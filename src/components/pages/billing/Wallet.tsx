@@ -8,14 +8,15 @@ import {
   CardTitle,
 } from '@/components/shared/ui/card'
 
-import { useGetUser } from '@/hooks/tanstack/useGetUserById'
+import { useAuth } from '@/contexts/AuthContext'
 
-import { userTestId } from '@/shared/test/userTest'
+import { useGetUser } from '@/hooks/tanstack/useGetUserById'
 
 import { Recharge } from './Recharge'
 
 export const Wallet = () => {
-  const { data, isLoading } = useGetUser(userTestId)
+  const { user } = useAuth()
+  const { data, isLoading } = useGetUser(user?.id || 1)
   return (
     <section className="mt-8 px-12">
       <Card className="bg-slate-200/80">

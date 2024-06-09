@@ -20,7 +20,9 @@ const getRentComplete = async ({
     userId,
   })
 
-  const rentsComplete = rentsRaw.map(async (rent) => {
+  const rentsFiltered = rentsRaw.filter((rent) => rent.endDate === null)
+
+  const rentsComplete = rentsFiltered.map(async (rent) => {
     const user = await fetchUserById(rent.userId)
     const battery = await fetchBatteryById(rent.batteryId)
     const cabinetFrom = await fetchCabinetById(rent.cabinetFromId)

@@ -6,8 +6,8 @@ import { BatteryDTO } from '@/types/dto/Battery/BatteryDTO'
 type getCabinetBatteryParams = {
   cabinetId: number
   battery?: {
-    brand: string
-    capacity: number
+    brand?: string
+    capacity?: number
   }
 }
 

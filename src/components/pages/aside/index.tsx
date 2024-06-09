@@ -4,6 +4,8 @@ import { usePathname } from 'next/navigation'
 
 import { House, Wallet } from '@phosphor-icons/react/dist/ssr'
 
+import { useAuth } from '@/contexts/AuthContext'
+
 import { Button } from '../../shared/ui/button'
 import { AsideItem } from './Item'
 
@@ -28,6 +30,7 @@ const items = [
 export const Aside = () => {
   const pathname = usePathname()
   const actualPage = pathname.split('/').pop()
+  const { logout } = useAuth()
 
   return (
     <aside className="hidden h-screen w-60 flex-col justify-between bg-energy-900 py-6 lg:flex">
@@ -46,7 +49,11 @@ export const Aside = () => {
         </ul>
       </div>
       <div className="px-5">
-        <Button className="mt-6 h-12 w-full" variant="destructive">
+        <Button
+          onClick={logout}
+          className="mt-6 h-12 w-full"
+          variant="destructive"
+        >
           Logout
         </Button>
       </div>

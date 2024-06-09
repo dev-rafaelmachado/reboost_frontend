@@ -31,6 +31,8 @@ import { useMutateRent } from '@/hooks/tanstack/useMutateRent'
 import { useUpdateUser } from '@/hooks/tanstack/useMutateUser'
 
 import { calcHourSpend } from '@/shared/utils/calcHourSpend'
+import { formatDate } from '@/shared/utils/formatDate'
+import { toGlobalTime } from '@/shared/utils/toGlobalTime'
 
 import { GetRentByIdComplete } from '@/types/complete/GetRentByIdComplete'
 
@@ -59,9 +61,13 @@ export const TakeBack = ({ rent }: Props) => {
       queryClient.invalidateQueries({
         queryKey: ['User'],
       })
+      queryClient.invalidateQueries({
+        queryKey: ['Rent'],
+      })
       if (user === null) return
       const value =
-        calcHourSpend(rent.startDate, rent.endDate) * rent.battery.pricePerHour
+        calcHourSpend(rent.startDate, rent.endDate) +
+        1 * rent.battery.pricePerHour
       mutateUser({
         id: user.id,
         body: {
@@ -91,6 +97,8 @@ export const TakeBack = ({ rent }: Props) => {
     mutateRent({
       id: rent.id,
       body: {
+        beginDate: rent.startDate,
+        finishDate: formatDate(toGlobalTime(new Date())),
         fkCabinetFromId: rent.cabinetFromId,
         fkCabinetToId: parseInt(values.cabinetToId),
         fkUserId: rent.userId,

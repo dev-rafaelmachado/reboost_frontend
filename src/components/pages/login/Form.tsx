@@ -5,6 +5,8 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
+import { useAuth } from '@/contexts/AuthContext'
+
 import { Button } from '../../shared/ui/button'
 import {
   Form,
@@ -19,7 +21,7 @@ import { Input } from '../../shared/ui/input'
 
 const LoginSchema = z.object({
   email: z.string().email('Invalid e-mail address'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
+  password: z.string().min(6, 'Password must be at least 6 characters'),
 })
 
 export const FormLogin = () => {
@@ -27,8 +29,10 @@ export const FormLogin = () => {
     resolver: zodResolver(LoginSchema),
   })
 
+  const { login } = useAuth()
+
   function onSubmit(values: z.infer<typeof LoginSchema>) {
-    console.log(values)
+    login(values.email, values.password)
   }
 
   return (

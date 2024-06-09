@@ -10,16 +10,18 @@ import {
 } from '@/components/shared/ui/card'
 import { Skeleton } from '@/components/shared/ui/skeleton'
 
+import { useAuth } from '@/contexts/AuthContext'
+
 import { useGetRents } from '@/hooks/tanstack/useGetRents'
 
-import { userTestId } from '@/shared/test/userTest'
 import { calcHourSpend } from '@/shared/utils/calcHourSpend'
 
 import { Chronometer } from './Chronometer'
 import { TakeBack } from './Takeback'
 
 export const ActiveRentals = () => {
-  const { data: rents } = useGetRents({ userId: userTestId })
+  const { user } = useAuth()
+  const { data: rents } = useGetRents({ userId: user?.id })
 
   return (
     <div className="flex w-full justify-start gap-4">
@@ -47,7 +49,7 @@ export const ActiveRentals = () => {
               <p>
                 Payment:{' '}
                 {(
-                  calcHourSpend(rent.startDate, rent.endDate) *
+                  (calcHourSpend(rent.startDate, rent.endDate) + 1) *
                   rent.battery.pricePerHour
                 ).toLocaleString('USD', {
                   style: 'currency',

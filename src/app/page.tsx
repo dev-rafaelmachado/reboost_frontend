@@ -1,3 +1,3 @@
 export default function Home() {
-  return <main className="h-screen w-screen">Building...</main>
+  return <div>Loading...</div>
 }

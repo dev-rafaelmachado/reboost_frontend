@@ -1,9 +1,13 @@
 'use client'
 
+import { useRouter } from 'next/navigation'
+
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
+
+import { useUpdateUser } from '@/hooks/tanstack/useMutateUser'
 
 import { Button } from '../../shared/ui/button'
 import {
@@ -27,8 +31,25 @@ export const FormRegister = () => {
     resolver: zodResolver(RegisterSchema),
   })
 
+  const router = useRouter()
+  const { mutate: updateUser } = useUpdateUser({})
+
   function onSubmit(values: z.infer<typeof RegisterSchema>) {
-    console.log(values)
+    updateUser(
+      {
+        body: {
+          name: values.name,
+          email: values.email,
+          password: values.password,
+          billing: 0,
+        },
+      },
+      {
+        onSuccess: () => {
+          router.push('/login')
+        },
+      },
+    )
   }
 
   return (
